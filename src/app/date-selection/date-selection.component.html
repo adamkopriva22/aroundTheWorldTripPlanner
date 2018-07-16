@@ -1,0 +1,5 @@
+<h2>When do you want to begin?</h2>
+<p>Choose date when you want to start your trip.</p>
+<input [matDatepicker]="startDatepicker" [(ngModel)]="flightDatepicker">
+<mat-datepicker-toggle [for]="startDatepicker"></mat-datepicker-toggle>
+<mat-datepicker #startDatepicker></mat-datepicker>

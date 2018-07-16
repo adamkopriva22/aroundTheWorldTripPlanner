@@ -1,0 +1,26 @@
+<h3>Itinerary</h3>
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let flight of flights">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+      <div fxLayout="column">
+        <div fxLayout="row">{{flight.departureTime * 1000 | date:'short'}}</div>
+        <div fxLayout="row">
+          {{flight.cityFrom}} ({{flight.countryFrom}})
+        </div>
+      </div>
+      <div fxLayout="column">
+        ->
+      </div>
+      <div fxLayout="column">
+        <div fxLayout="row">{{flight.arrivalTime * 1000 | date:'short'}}</div>
+        <div fxLayout="row">
+          {{flight.cityTo}} ({{flight.countryTo}})
+        </div>
+      </div>
+      <div fxLayout="column">
+        {{flight.price}} {{flight.currency}}
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
+<h4>Sum: {{sumPrice}} USD</h4>

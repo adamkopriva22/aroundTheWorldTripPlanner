@@ -1,0 +1,20 @@
+<h2>Which regions do you want to visit?</h2>
+<p>Select regions in order you want to visit them. By clicking on region name you can add or remove regions.</p>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div flex>
+    <h3>Available regions</h3>
+    <mat-nav-list>
+      <mat-list-item (click)="addRegion(region)" *ngFor="let region of availableRegions">
+        {{ region }}
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+  <div flex>
+    <h3>Selected regions</h3>
+    <mat-nav-list>
+      <mat-list-item (click)="removeRegion(region)" *ngFor="let region of selectedRegions">
+        {{ region }}
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</div>

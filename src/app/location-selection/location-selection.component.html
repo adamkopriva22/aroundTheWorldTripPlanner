@@ -1,0 +1,8 @@
+<h2>Where do you want to take off?</h2>
+<p>Choose location where you want to start and finish your trip. Start typing to see suggestions.</p>
+<input #locationBox type="text" placeholder="From?" matInput [matAutocomplete]="auto" (keyup)="search(locationBox.value)">
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let location of locations$ | async" [value]="location.name" (click)="selectLocation(location)">
+    {{location.name}}
+  </mat-option>
+</mat-autocomplete>

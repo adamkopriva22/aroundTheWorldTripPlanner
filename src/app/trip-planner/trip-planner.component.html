@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutAlign="none">
+  <div [ngSwitch]="currentTab">
+    <app-regions-selection *ngSwitchCase="'regions'"></app-regions-selection>
+    <app-location-selection *ngSwitchCase="'location'"></app-location-selection>
+    <app-date-selection *ngSwitchCase="'startDate'"></app-date-selection>
+    <app-flights-search *ngSwitchCase="'flights'"></app-flights-search>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start">
+    <button *ngIf="currentTab != 'flights'" mat-button (click)="next()">Next</button>
+  </div>
+</div>

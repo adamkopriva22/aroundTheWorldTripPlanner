@@ -1,0 +1,14 @@
+<div *ngIf="(flights$ | async) as flights; else loading">
+  <ng-container *ngIf="flights.length; else noItems">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let flight of flights">
+        <app-flight-detail [flight]="flight"></app-flight-detail>
+      </mat-list-item>
+    </mat-nav-list>
+  </ng-container>
+  <ng-template #noItems>
+    No flights found!
+    <a routerLink="">Start over</a>
+  </ng-template>
+</div>
+<ng-template #loading>Looking for flights ...</ng-template>

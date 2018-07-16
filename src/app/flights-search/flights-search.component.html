@@ -1,0 +1,20 @@
+<div div fxLayout="row" fxLayoutAlign="none" fxLayoutGap="20px">
+  <div *ngIf="selectedRegion">
+    <h2>Lets select destination in region {{selectedRegion}}!</h2>
+    <p>Check out flights to different cities in {{selectedRegion}} region. Select flight by clicking on "Select" button.</p>
+    <div *ngFor="let region of itinerary.regions">
+      <app-flight-location *ngIf="region == selectedRegion" [location]="getLocation(region)"></app-flight-location>
+    </div>
+  </div>
+
+  <div *ngIf="goHome">
+    <h2>Lets get you home to {{location}}</h2>
+    <p>Select flight home by clicking on "Select" button.</p>
+    <app-flight-location [location]="location"></app-flight-location>
+  </div>
+
+  <div>
+    <p *ngIf="!goHome && !selectedRegion">Details of your trip can be found in itinerary. This is just demo app but flights are real and provided by kiwi.com API, so you can book it on their site!</p>
+    <app-itinerary></app-itinerary>
+  </div>
+</div>
