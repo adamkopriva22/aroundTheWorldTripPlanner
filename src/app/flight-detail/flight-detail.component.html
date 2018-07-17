@@ -1,11 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <div fxLayout="column">
       <div fxLayout="row"><b>{{flight.cityFrom}}</b></div>
-      <div fxLayout="row">{{flight.departureTime * 1000 | date:'short'}}</div>   
+      <div fxLayout="row">{{TimeToMiliseconds(flight.departureTime) | date:'short'}}</div>   
   </div>
   <div fxLayout="column">
       <div fxLayout="row"><b>{{flight.cityTo}} | {{flight.countryTo}}</b></div>
-      <div fxLayout="row">{{flight.arrivalTime * 1000 | date:'short'}}</div>   
+      <div fxLayout="row">{{TimeToMiliseconds(flight.arrivalTime) | date:'short'}}</div>   
   </div>
   <div fxLayout="column">
       <b>{{flight.price}} {{flight.currency}}</b>
