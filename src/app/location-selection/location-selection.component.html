@@ -6,3 +6,8 @@
     {{location.name}}
   </mat-option>
 </mat-autocomplete>
+
+<div *ngIf="displayAlert"
+     class="alert alert-danger">
+     Trip starting location is required.
+</div>

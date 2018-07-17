@@ -1,16 +1,20 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
-  <div fxLayout="column">
-      <div fxLayout="row"><b>{{flight.cityFrom}}</b></div>
-      <div fxLayout="row">{{TimeToMiliseconds(flight.departureTime) | date:'short'}}</div>   
-  </div>
-  <div fxLayout="column">
-      <div fxLayout="row"><b>{{flight.cityTo}} | {{flight.countryTo}}</b></div>
-      <div fxLayout="row">{{TimeToMiliseconds(flight.arrivalTime) | date:'short'}}</div>   
-  </div>
-  <div fxLayout="column">
-      <b>{{flight.price}} {{flight.currency}}</b>
-  </div>
-  <div fxLayout="column">
-      <button mat-button (click)="selectFlight()">Select</button>
-  </div>
+    <div fxLayout="column">
+        <div fxLayout="row">
+            <b>{{flight.cityFrom}}</b>
+        </div>
+        <div fxLayout="row">{{timeToMiliseconds(flight.departureTime) | date:'short'}}</div>
+    </div>
+    <div fxLayout="column">
+        <div fxLayout="row">
+            <b>{{flight.cityTo}} | {{flight.countryTo}}</b>
+        </div>
+        <div fxLayout="row">{{timeToMiliseconds(flight.arrivalTime) | date:'short'}}</div>
+    </div>
+    <div fxLayout="column">
+        <b>{{flight.price}} {{flight.currency}}</b>
+    </div>
+    <div fxLayout="column">
+        <button mat-button (click)="selectFlight()">Select</button>
+    </div>
 </div>

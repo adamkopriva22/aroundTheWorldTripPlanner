@@ -1,6 +1,6 @@
 import { FlightData } from "./FlightData";
 
 export class Flights {
-    data: FlightData[];
-    currency: string;
-  }
+  data: FlightData[];
+  currency: string;
+}

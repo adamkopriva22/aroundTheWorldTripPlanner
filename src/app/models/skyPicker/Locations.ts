@@ -1,5 +1,5 @@
 import { Location } from './Location';
 
 export class Locations {
-    locations: Location[]
-  }
+  locations: Location[]
+}

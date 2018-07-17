@@ -8,9 +8,9 @@ describe('RegionsSelectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegionsSelectionComponent ]
+      declarations: [RegionsSelectionComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

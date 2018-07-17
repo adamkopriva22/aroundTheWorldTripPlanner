@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ItineraryService } from '../itinerary.service';
-import { FlightSearchService } from '../flight-search.service';
 import { FlightDetail } from '../models/FlightDetail';
 
 @Component({
@@ -16,8 +15,7 @@ export class ItineraryComponent implements OnInit {
   currency: string = "USD";
 
   constructor(
-    private itineraryService: ItineraryService,
-    private flightSearchService: FlightSearchService) {
+    private itineraryService: ItineraryService) {
     itineraryService.flightAdded$.subscribe(
           flight => {
             this.flightAdded(flight);

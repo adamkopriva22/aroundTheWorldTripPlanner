@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { RegionEnum } from './models/RegionEnum';
@@ -19,13 +19,13 @@ export class FlightSearchService {
   private flightsUrl = '/flights';
   private locationsUrl = '/locations';
 
-  private europeanCountryCodes = "va,ch,ad,ee,is,am,al,cz,ge,at,ie,gi,gr,nl,pt,no,lv,lt,lu,es,it,ro,pl,be,fr,bg,dk,hr,de,hu,ba,fi,by,fo,mc,cy,mk,sk,mt,si,sm,se,gb".toUpperCase();
-  private oceaniaCountryCodes = "ck,pw,tv,na,ki,mh,nu,to,nz,au,vu,sb,ws,fj,fm".toUpperCase();
-  private africaCountryCodes = "gw,zm,ci,eh,gq,eg,cg,cf,ao,ga,et,gn,gm,zw,cv,gh,rw,tz,cm,na,ne,ng,tn,lr,ls,tg,td,er,ly,bf,dj,sl,bi,bj,za,bw,dz,sz,mg,ma,ke,ml,km,st,mu,mw,so,sn,mr,sc,ug,sd,mz".toUpperCase();
-  private asiaCountryCodes = "mn,cn,af,am,vn,ge,in,az,id,ru,la,tw,tr,lk,tm,tj,pg,th,np,pk,ph,bd,ua,bn,jp,bt,hk,kg,uz,mm,sg,mo,kh,kr,mv,kz,my".toUpperCase();
-  private northAmericaCodes = "gt,ag,vg,ai,vi,ca,gd,aw,cr,cu,pr,ni,tt,gp,pa,do,dm,bb,ht,jm,hn,bs,bz,sx,sv,us,mq,ms,ky,mx".toUpperCase();
-  private southAmericaCodes = "gd,py,co,ve,cl,sr,bo,ec,gf,ar,gy,br,pe,uy,fk".toUpperCase();
-  private middleEastCodes = "om,lb,iq,ye,ir,bh,sy,qa,jo,kw,il,ae,sa".toUpperCase();
+  private readonly europeanCountryCodes = "va,ch,ad,ee,is,am,al,cz,ge,at,ie,gi,gr,nl,pt,no,lv,lt,lu,es,it,ro,pl,be,fr,bg,dk,hr,de,hu,ba,fi,by,fo,mc,cy,mk,sk,mt,si,sm,se,gb".toUpperCase();
+  private readonly oceaniaCountryCodes = "ck,pw,tv,nr,ki,mh,nu,to,nz,au,vu,sb,ws,fj,fm".toUpperCase();
+  private readonly africaCountryCodes = "gw,zm,ci,eh,gq,eg,cg,cf,ao,ga,et,gn,gm,zw,cv,gh,rw,tz,cm,na,ne,ng,tn,lr,ls,tg,td,er,ly,bf,dj,sl,bi,bj,za,bw,dz,sz,mg,ma,ke,ml,km,st,mu,mw,so,sn,mr,sc,ug,sd,mz".toUpperCase();
+  private readonly asiaCountryCodes = "mn,cn,af,am,vn,ge,in,az,id,ru,la,tw,tr,lk,tm,tj,pg,th,np,pk,ph,bd,ua,bn,jp,bt,hk,kg,uz,mm,sg,mo,kh,kr,mv,kz,my".toUpperCase();
+  private readonly northAmericaCodes = "gt,ag,vg,ai,vi,ca,gd,aw,cr,cu,pr,ni,tt,gp,pa,do,dm,bb,ht,jm,hn,bs,bz,sx,sv,us,mq,ms,ky,mx".toUpperCase();
+  private readonly southAmericaCodes = "gd,py,co,ve,cl,sr,bo,ec,gf,ar,gy,br,pe,uy,fk".toUpperCase();
+  private readonly middleEastCodes = "om,lb,iq,ye,ir,bh,sy,qa,jo,kw,il,ae,sa".toUpperCase();
 
   constructor(
     private http: HttpClient,
@@ -56,7 +56,7 @@ export class FlightSearchService {
         countryCodes = this.middleEastCodes;
         break;
       default:
-      // to do throw
+        new Error(`${region} not handled`);
     }
 
     return countryCodes;
@@ -64,13 +64,13 @@ export class FlightSearchService {
 
   searchFlights(flyTo: string, flyFrom: string, dateFrom: Date): Observable<FlightDetail[]> {
 
-    var formatDate = `${dateFrom.getDate()}/${dateFrom.getMonth() + 1}/${dateFrom.getFullYear()}`;
+    var formatDateFrom = `${dateFrom.getDate()}/${dateFrom.getMonth() + 1}/${dateFrom.getFullYear()}`;
 
     return this.http.get<Flights>(`${this.skyPickerUrl}${this.flightsUrl}?` +
       `flyFrom=${flyFrom}&` +
       `to=${flyTo}&` +
-      `dateFrom=${formatDate}&` +
-      `dateTo=${formatDate}&` +
+      `dateFrom=${formatDateFrom}&` +
+      `dateTo=${formatDateFrom}&` +
       `typeFlight=oneway&` +
       `curr=USD&` +
       `oneforcity=1`)
@@ -105,10 +105,8 @@ export class FlightSearchService {
     return flightDetails;
   }
 
-  /* GET locations whose name contains search term */
   searchLocaions(term: string): Observable<Location[]> {
     if (!term.trim()) {
-      // if not search term, return empty array.
       return of([]);
     }
     return this.http.get<Locations>(`${this.skyPickerUrl}${this.locationsUrl}/?term=${term}&active_only=true&location_types=airport&location_types=city&location_types=country`).pipe(

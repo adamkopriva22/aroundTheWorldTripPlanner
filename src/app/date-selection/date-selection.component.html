@@ -1,5 +1,11 @@
 <h2>When do you want to begin?</h2>
-<p>Choose date when you want to start your trip.</p>
-<input [matDatepicker]="startDatepicker" [(ngModel)]="flightDatepicker">
-<mat-datepicker-toggle [for]="startDatepicker"></mat-datepicker-toggle>
-<mat-datepicker #startDatepicker></mat-datepicker>
+<p>Choose date when you want to start your trip. You'll spend around a week in each region.</p>
+<form #dateSelectionForm="ngForm">
+    <input [matDatepicker]="startDatepicker" [(ngModel)]="flightDatepicker" name="startDate" required #startDate="ngModel" [min]="minDate">
+    <mat-datepicker-toggle [for]="startDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatepicker></mat-datepicker>
+
+    <div [hidden]="startDate.valid || startDate.pristine" class="alert alert-danger">
+        Select trip start date.
+    </div>
+</form>

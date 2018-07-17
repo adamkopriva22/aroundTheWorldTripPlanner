@@ -8,9 +8,9 @@ describe('DateSelectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DateSelectionComponent ]
+      declarations: [DateSelectionComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

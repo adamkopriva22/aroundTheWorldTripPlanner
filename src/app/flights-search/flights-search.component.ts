@@ -4,6 +4,7 @@ import { ItineraryService } from '../itinerary.service';
 import { FlightSearchService } from '../flight-search.service';
 import { Itinerary } from '../models/Itinerary';
 import { RegionEnum } from '../models/RegionEnum';
+import { Location } from '../models/Location';
 
 @Component({
   selector: 'app-flights-search',
@@ -15,7 +16,7 @@ export class FlightsSearchComponent implements OnInit {
   goHome: boolean = false;
   selectedRegion: RegionEnum;
   itinerary: Itinerary;
-  location: string;
+  location: Location;
 
   constructor(
     private itineraryService: ItineraryService,
@@ -39,7 +40,7 @@ export class FlightsSearchComponent implements OnInit {
 
     if (!this.itineraryService.currentRegion) {
       this.goHome = true;
-      this.location = this.itineraryService.startLocation.id;
+      this.location = this.itineraryService.startLocation;
     }
 
     this.selectedRegion = this.itineraryService.currentRegion;

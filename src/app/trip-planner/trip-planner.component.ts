@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 
-import { RegionsSelectionComponent }  from '../regions-selection/regions-selection.component';
-import { LocationSelectionComponent }    from '../location-selection/location-selection.component';
-import { DateSelectionComponent }    from '../date-selection/date-selection.component';
+import { RegionsSelectionComponent } from '../regions-selection/regions-selection.component';
+import { LocationSelectionComponent } from '../location-selection/location-selection.component';
+import { DateSelectionComponent } from '../date-selection/date-selection.component';
+
+export interface ITripPlannerChildComponent {
+  isValid(): boolean;
+  save(): void
+}
 
 @Component({
   selector: 'app-trip-planner',
@@ -12,9 +17,9 @@ import { DateSelectionComponent }    from '../date-selection/date-selection.comp
 })
 
 export class TripPlannerComponent implements OnInit {
-  
+
   @ViewChild(RegionsSelectionComponent)
-  private continentsComponent: RegionsSelectionComponent;
+  private regionsComponent: RegionsSelectionComponent;
 
   @ViewChild(LocationSelectionComponent)
   private locationComponent: LocationSelectionComponent;
@@ -36,16 +41,22 @@ export class TripPlannerComponent implements OnInit {
   next() {
     switch (this.currentTab) {
       case "regions":
-        this.currentTab = "location";
-        this.continentsComponent.save();
+        if (this.regionsComponent.isValid()) {
+          this.currentTab = "location";
+          this.regionsComponent.save();
+        }
         break;
       case "location":
-        this.currentTab = "startDate";
-        this.locationComponent.save();
+        if (this.locationComponent.isValid()) {
+          this.currentTab = "startDate";
+          this.locationComponent.save();
+        }
         break;
       case "startDate":
-        this.currentTab = "flights";
-        this.dateComponent.save();
+        if (this.dateComponent.isValid()) {
+          this.currentTab = "flights";
+          this.dateComponent.save();
+        }
         break;
       default:
         break;

@@ -4,9 +4,9 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 
-import { MessageService } from '../message.service';
 import { ItineraryService } from '../itinerary.service';
 
+import { ITripPlannerChildComponent } from '../trip-planner/trip-planner.component';
 import { Location } from '../models/Location';
 import { FlightSearchService } from '../flight-search.service';
 
@@ -16,14 +16,14 @@ import { FlightSearchService } from '../flight-search.service';
   styleUrls: ['./location-selection.component.css']
 })
 
-export class LocationSelectionComponent implements OnInit {  
+export class LocationSelectionComponent implements OnInit, ITripPlannerChildComponent {  
   locations$: Observable<Location[]>;
   private searchTerms = new Subject<string>();
 
   selectedLocation: Location;
+  displayAlert: boolean = false;
 
   constructor(
-    private messageService: MessageService, 
     private flighSearchService: FlightSearchService,
     private itineraryService: ItineraryService) { }
 
@@ -44,15 +44,25 @@ export class LocationSelectionComponent implements OnInit {
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
+    this.displayAlert = false;
   }
 
   selectLocation(location: Location): void
   {
     this.selectedLocation = location;
+    this.displayAlert = false;
   }
 
   save()
   {
     this.itineraryService.setLocation(this.selectedLocation);
+  }
+
+  isValid(): boolean {
+    if (this.selectedLocation.id && this.selectedLocation.id.length !== 0)
+      return true;
+
+    this.displayAlert = true;
+    return false;
   }
 }

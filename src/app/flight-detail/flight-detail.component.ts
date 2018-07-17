@@ -25,7 +25,7 @@ export class FlightDetailComponent implements OnInit {
       this.messageService.add(`flight added: ${this.flight.price} ${this.flight.cityTo}`);
   }
 
-  TimeToMiliseconds(time: string) : Number
+  timeToMiliseconds(time: string) : Number
   {
     return +time * 1000;
   }

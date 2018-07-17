@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { RegionEnum } from './models/RegionEnum';
 import { MessageService } from './message.service';
@@ -38,21 +38,18 @@ export class ItineraryService {
     this.flights.push(flight);
     this.currentDate.setDate(this.currentDate.getDate() + 7);
     this.currentLocation = { id: flight.airportTo, code: flight.cityTo } as Location;
-    
-    if (this.currentRegion != null)
-    {
+
+    if (this.currentRegion != null) {
       var nextRegionIndex = this.regions.indexOf(this.currentRegion) + 1;
 
-      if (nextRegionIndex > this.regions.length - 1)
-      {
+      if (nextRegionIndex > this.regions.length - 1) {
         this.currentRegion = null;
       }
-      else
-      {
-        this.currentRegion = this.regions[nextRegionIndex];   
+      else {
+        this.currentRegion = this.regions[nextRegionIndex];
       }
     }
-    
+
     this.flightAddedSource.next(flight);
   }
 

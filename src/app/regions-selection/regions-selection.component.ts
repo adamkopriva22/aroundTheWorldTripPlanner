@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MessageService } from '../message.service';
 import { ItineraryService } from '../itinerary.service';
-
+import { ITripPlannerChildComponent } from '../trip-planner/trip-planner.component';
 import { RegionEnum } from '../models/RegionEnum';
 
 @Component({
@@ -11,10 +10,11 @@ import { RegionEnum } from '../models/RegionEnum';
   styleUrls: ['./regions-selection.component.css']
 })
 
-export class RegionsSelectionComponent implements OnInit {
+export class RegionsSelectionComponent implements OnInit, ITripPlannerChildComponent {
 
   availableRegions: RegionEnum[];
   selectedRegions: RegionEnum[];
+  displayAlert: boolean = false;
 
   constructor(private itineraryService: ItineraryService) { }
 
@@ -39,6 +39,8 @@ export class RegionsSelectionComponent implements OnInit {
     if (index > -1) {
       this.availableRegions.splice(index, 1);
     }
+
+    this.displayAlert = false;
   }
 
   removeRegion(region: RegionEnum) {
@@ -57,5 +59,13 @@ export class RegionsSelectionComponent implements OnInit {
 
   save() {
     this.itineraryService.setRegions(this.selectedRegions);
+  }
+
+  isValid(): boolean {
+    if (this.selectedRegions.length > 0)
+      return true;
+
+    this.displayAlert = true;
+    return false;
   }
 }
